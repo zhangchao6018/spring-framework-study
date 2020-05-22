@@ -1,8 +1,9 @@
 package com.demo.service.impl;
 
 import com.demo.service.WelcomeService;
+import org.springframework.stereotype.Service;
 
-//@Service
+@Service
 public class WelcomeServiceImpl implements WelcomeService {
 
 	@Override

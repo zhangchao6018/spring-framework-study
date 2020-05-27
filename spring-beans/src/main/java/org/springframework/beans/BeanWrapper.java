@@ -19,6 +19,7 @@ package org.springframework.beans;
 import java.beans.PropertyDescriptor;
 
 /**
+ * BeanWrapper 是Spring提供的一个用来操作javaBean属性的工具，使用它可以直接修改一个对象的属性。
  * The central interface of Spring's low-level JavaBeans infrastructure.
  *
  * <p>Typically not used directly but rather implicitly via a
@@ -52,26 +53,31 @@ public interface BeanWrapper extends ConfigurablePropertyAccessor {
 	 * Specify a limit for array and collection auto-growing.
 	 * <p>Default is unlimited on a plain BeanWrapper.
 	 * @since 4.1
+	 * 为数组和集合自动增长指定一个限制。在普通的BeanWrapper上默认是无限的
 	 */
 	void setAutoGrowCollectionLimit(int autoGrowCollectionLimit);
 
 	/**
 	 * Return the limit for array and collection auto-growing.
+	 * 返回数组和集合自动增长的限制
 	 * @since 4.1
 	 */
 	int getAutoGrowCollectionLimit();
 
 	/**
 	 * Return the bean instance wrapped by this object.
+	 * 如果有的话,返回由此对象包装的bean实例
 	 */
 	Object getWrappedInstance();
 
 	/**
 	 * Return the type of the wrapped bean instance.
+	 * 返回被包装的JavaBean对象的类型。
 	 */
 	Class<?> getWrappedClass();
 
 	/**
+	 * 获取包装对象的PropertyDescriptors
 	 * Obtain the PropertyDescriptors for the wrapped object
 	 * (as determined by standard JavaBeans introspection).
 	 * @return the PropertyDescriptors for the wrapped object
@@ -79,6 +85,7 @@ public interface BeanWrapper extends ConfigurablePropertyAccessor {
 	PropertyDescriptor[] getPropertyDescriptors();
 
 	/**
+	 * 获取包装对象的特定属性的属性描述符
 	 * Obtain the property descriptor for a specific property
 	 * of the wrapped object.
 	 * @param propertyName the property to obtain the descriptor for

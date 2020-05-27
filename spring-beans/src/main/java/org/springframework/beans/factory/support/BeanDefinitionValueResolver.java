@@ -108,11 +108,17 @@ class BeanDefinitionValueResolver {
 	public Object resolveValueIfNecessary(Object argName, @Nullable Object value) {
 		// We must check each value to see whether it requires a runtime reference
 		// to another bean to be resolved.
+		// 检查每个值，看看它是否需要一个运行时引用，然后来解析另一个 bean
 		if (value instanceof RuntimeBeanReference) {
+			//在解析到依赖的Bean的时侯，
+			// 解析器会依据依赖bean的name创建一个RuntimeBeanReference对象，
+			// 将这个对象放入BeanDefinition的MutablePropertyValues中
 			RuntimeBeanReference ref = (RuntimeBeanReference) value;
 			return resolveReference(argName, ref);
 		}
 		else if (value instanceof RuntimeBeanNameReference) {
+			//当在beanfactory中作为另外一个bean名称的引用时，
+			// 作为属性值对象，将在运行时进行解析
 			String refName = ((RuntimeBeanNameReference) value).getBeanName();
 			refName = String.valueOf(doEvaluate(refName));
 			if (!this.beanFactory.containsBean(refName)) {
@@ -123,11 +129,14 @@ class BeanDefinitionValueResolver {
 		}
 		else if (value instanceof BeanDefinitionHolder) {
 			// Resolve BeanDefinitionHolder: contains BeanDefinition with name and aliases.
+			//解析BeanDefinitionHolder：包含具有名称和别名的BeanDefinition，
+			// BeanDefinitionHolder就是使用名称或者别名来保存BeanDefinition的。
 			BeanDefinitionHolder bdHolder = (BeanDefinitionHolder) value;
 			return resolveInnerBean(argName, bdHolder.getBeanName(), bdHolder.getBeanDefinition());
 		}
 		else if (value instanceof BeanDefinition) {
 			// Resolve plain BeanDefinition, without contained name: use dummy name.
+			//解析纯粹的BeanDefinition
 			BeanDefinition bd = (BeanDefinition) value;
 			String innerBeanName = "(inner bean)" + BeanFactoryUtils.GENERATED_BEAN_NAME_SEPARATOR +
 					ObjectUtils.getIdentityHexString(bd);
@@ -146,6 +155,7 @@ class BeanDefinitionValueResolver {
 		}
 		else if (value instanceof ManagedArray) {
 			// May need to resolve contained runtime references.
+			//包含运行时期的bean引用(将被解析为bean对象)
 			ManagedArray array = (ManagedArray) value;
 			Class<?> elementType = array.resolvedElementType;
 			if (elementType == null) {
@@ -170,16 +180,21 @@ class BeanDefinitionValueResolver {
 		}
 		else if (value instanceof ManagedList) {
 			// May need to resolve contained runtime references.
+			//用来保存它所管理的List元素，它可以包含运行时期的bean引用(将被解析为bean对象)
 			return resolveManagedList(argName, (List<?>) value);
 		}
 		else if (value instanceof ManagedSet) {
 			// May need to resolve contained runtime references.
+			//用来保存它所管理的set值，它可以包含运行时期的bean引用(将被解析为bean对象)
 			return resolveManagedSet(argName, (Set<?>) value);
 		}
 		else if (value instanceof ManagedMap) {
 			// May need to resolve contained runtime references.
+			//用来保存它所管理的map值，它可以包含运行时期的bean引用(将被解析为bean对象)
 			return resolveManagedMap(argName, (Map<?, ?>) value);
 		}
+		//ManagedProperties表示的是一个spring管理的属性实例，
+		// 它支持父/子 definition的合并
 		else if (value instanceof ManagedProperties) {
 			Properties original = (Properties) value;
 			Properties copy = new Properties();

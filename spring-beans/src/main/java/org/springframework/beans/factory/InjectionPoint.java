@@ -27,6 +27,9 @@ import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
 /**
+ * 用于描述一个注入点，这个注入点是以下两种情况之一 :
+ * 一个实例方法(构造函数或者成员方法)的某个参数(参数类型，参数索引)及该参数上的注解信息;
+ * 实例成员属性以及该属性上的注解信息；
  * A simple descriptor for an injection point, pointing to a method/constructor
  * parameter or a field. Exposed by {@link UnsatisfiedDependencyException}.
  * Also available as an argument for factory methods, reacting to the
@@ -38,18 +41,19 @@ import org.springframework.util.ObjectUtils;
  * @see org.springframework.beans.factory.config.DependencyDescriptor
  */
 public class InjectionPoint {
-
+	// 包装函数参数时用于保存所包装的函数参数，内含该参数的注解信息
 	@Nullable
 	protected MethodParameter methodParameter;
-
+	// 包装成员属性时用于保存所包装的成员属性
 	@Nullable
 	protected Field field;
-
+	// 包装成员属性时用于保存所包装的成员属性的注解信息
 	@Nullable
 	private volatile Annotation[] fieldAnnotations;
 
 
 	/**
+	 * 构造函数，用于包装一个函数参数
 	 * Create an injection point descriptor for a method or constructor parameter.
 	 * @param methodParameter the MethodParameter to wrap
 	 */
@@ -59,6 +63,7 @@ public class InjectionPoint {
 	}
 
 	/**
+	 * 构造函数，用于包装一个成员属性
 	 * Create an injection point descriptor for a field.
 	 * @param field the field to wrap
 	 */
@@ -68,6 +73,7 @@ public class InjectionPoint {
 	}
 
 	/**
+	 * 复制构造函数
 	 * Copy constructor.
 	 * @param original the original descriptor to create a copy from
 	 */
@@ -79,6 +85,7 @@ public class InjectionPoint {
 	}
 
 	/**
+	 * 缺省构造函数，出于子类序列化目的
 	 * Just available for serialization purposes in subclasses.
 	 */
 	protected InjectionPoint() {
@@ -86,6 +93,7 @@ public class InjectionPoint {
 
 
 	/**
+	 * 返回所包装的函数参数，仅在当前对象用于包装函数参数时返回非null
 	 * Return the wrapped MethodParameter, if any.
 	 * <p>Note: Either MethodParameter or Field is available.
 	 * @return the MethodParameter, or {@code null} if none
@@ -96,6 +104,7 @@ public class InjectionPoint {
 	}
 
 	/**
+	 * 返回所包装的成员属性，仅在当前对象用于包装成员属性时返回非null
 	 * Return the wrapped Field, if any.
 	 * <p>Note: Either MethodParameter or Field is available.
 	 * @return the Field, or {@code null} if none
@@ -106,6 +115,7 @@ public class InjectionPoint {
 	}
 
 	/**
+	 * 获取所包装的函数参数
 	 * Return the wrapped MethodParameter, assuming it is present.
 	 * @return the MethodParameter (never {@code null})
 	 * @throws IllegalStateException if no MethodParameter is available
@@ -117,6 +127,7 @@ public class InjectionPoint {
 	}
 
 	/**
+	 * 获取所包装的依赖(方法参数或者成员属性)上的注解信息
 	 * Obtain the annotations associated with the wrapped field or method/constructor parameter.
 	 */
 	public Annotation[] getAnnotations() {

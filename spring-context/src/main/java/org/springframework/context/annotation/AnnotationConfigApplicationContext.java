@@ -52,13 +52,15 @@ import org.springframework.util.Assert;
  * @see org.springframework.context.support.GenericXmlApplicationContext
  */
 public class AnnotationConfigApplicationContext extends GenericApplicationContext implements AnnotationConfigRegistry {
-
+	//保存一个读取注解的Bean 定义读取器，并将其设置到容器中
 	private final AnnotatedBeanDefinitionReader reader;
-
+	//保存一个扫描指定类路径中注解Bean 定义的扫描器，并将其设置到容器中
 	private final ClassPathBeanDefinitionScanner scanner;
 
 
 	/**
+	 * 默认构造函数，初始化一个空容器，容器不包含任何Bean 信息，需要在稍后通过调用其register()
+	 * 方法注册配置类，并调用refresh()方法刷新容器，触发容器对注解Bean 的载入、解析和注册过程
 	 * Create a new AnnotationConfigApplicationContext that needs to be populated
 	 * through {@link #register} calls and then manually {@linkplain #refresh refreshed}.
 	 */
@@ -84,7 +86,12 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * {@link Configuration @Configuration} classes
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
+		//调用默认无参构造器,主要初始化AnnotatedBeanDefinitionReader
+		// 以及路径扫描器ClassPathBeanDefinitionScanner
 		this();
+		//把传入的Class进行注册,Class既可以有@Configuration注解,也可以没有@Configuration注解
+		//如何注册委托给了 org.springframework.context.annotation.AnnotatedBeanDefinitionReader.register 方法进行注册
+		// 包装传入的Class 生成 BeanDefinition , 注册到BeanDefinitionRegistry
 		register(componentClasses);
 		refresh();
 	}
@@ -181,7 +188,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 
 	@Override
 	public <T> void registerBean(@Nullable String beanName, Class<T> beanClass,
-			@Nullable Supplier<T> supplier, BeanDefinitionCustomizer... customizers) {
+								 @Nullable Supplier<T> supplier, BeanDefinitionCustomizer... customizers) {
 
 		this.reader.registerBean(beanClass, beanName, supplier, customizers);
 	}

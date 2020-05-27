@@ -317,26 +317,33 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 		if (logger.isTraceEnabled()) {
 			logger.trace("Loading XML bean definitions from " + encodedResource);
 		}
-
+		//从本地线程变量中获取当前的正在加载的资源
 		Set<EncodedResource> currentResources = this.resourcesCurrentlyBeingLoaded.get();
+		//如果本地线程变量中不存在正在加载的资源，那么将其添加进去
 		if (currentResources == null) {
 			currentResources = new HashSet<>(4);
 			this.resourcesCurrentlyBeingLoaded.set(currentResources);
 		}
+		//如果encodedResource添加进入currentResources失败，表明其中已经存在这个资源，只不过还没有加载完成，抛出重复加载的异常
 		if (!currentResources.add(encodedResource)) {
 			throw new BeanDefinitionStoreException(
 					"Detected cyclic loading of " + encodedResource + " - check your import definitions!");
 		}
 		try {
+			//获取文件的输入流
 			InputStream inputStream = encodedResource.getResource().getInputStream();
 			try {
+				//封装成InputSource，其中指定了输入流和编码格式
 				InputSource inputSource = new InputSource(inputStream);
+				//如果存在编码，那么将其添加进入InputSource中
 				if (encodedResource.getEncoding() != null) {
 					inputSource.setEncoding(encodedResource.getEncoding());
 				}
+				//调用同类的方法继续解析
 				return doLoadBeanDefinitions(inputSource, encodedResource.getResource());
 			}
 			finally {
+				//关闭输入流
 				inputStream.close();
 			}
 		}
@@ -345,7 +352,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 					"IOException parsing XML document from " + encodedResource.getResource(), ex);
 		}
 		finally {
+			//最后，加载完毕之后，从currentResources中移除
 			currentResources.remove(encodedResource);
+			//如果currentResources是空的，将本地线程变量移除
 			if (currentResources.isEmpty()) {
 				this.resourcesCurrentlyBeingLoaded.remove();
 			}
@@ -390,7 +399,12 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			throws BeanDefinitionStoreException {
 
 		try {
+			//创建Document对象，XML的文档对象，就是dom树
+			// 使用这个Document可以获取XML文件中的节点并且创建节点
+			// SAX XML
 			Document doc = doLoadDocument(inputSource, resource);
+			//解析dom树，即解析出一个个属性，将其保存到BeanDefinition当中
+			//并向容器注册BeanDefinition
 			int count = registerBeanDefinitions(doc, resource);
 			if (logger.isDebugEnabled()) {
 				logger.debug("Loaded " + count + " bean definitions from " + resource);
@@ -470,9 +484,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 		if (resource.isOpen()) {
 			throw new BeanDefinitionStoreException(
 					"Passed-in Resource [" + resource + "] contains an open stream: " +
-					"cannot determine validation mode automatically. Either pass in a Resource " +
-					"that is able to create fresh streams, or explicitly specify the validationMode " +
-					"on your XmlBeanDefinitionReader instance.");
+							"cannot determine validation mode automatically. Either pass in a Resource " +
+							"that is able to create fresh streams, or explicitly specify the validationMode " +
+							"on your XmlBeanDefinitionReader instance.");
 		}
 
 		InputStream inputStream;
@@ -482,8 +496,8 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 		catch (IOException ex) {
 			throw new BeanDefinitionStoreException(
 					"Unable to determine validation mode for [" + resource + "]: cannot open InputStream. " +
-					"Did you attempt to load directly from a SAX InputSource without specifying the " +
-					"validationMode on your XmlBeanDefinitionReader instance?", ex);
+							"Did you attempt to load directly from a SAX InputSource without specifying the " +
+							"validationMode on your XmlBeanDefinitionReader instance?", ex);
 		}
 
 		try {
@@ -509,9 +523,13 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 * @see BeanDefinitionDocumentReader#registerBeanDefinitions
 	 */
 	public int registerBeanDefinitions(Document doc, Resource resource) throws BeanDefinitionStoreException {
+		//创建BeanDefinitionDocumentReader，这个是实际从XML的DOM树中读取BeanDefiniton
 		BeanDefinitionDocumentReader documentReader = createBeanDefinitionDocumentReader();
+		//获取注册表beanDefinitionMap的在本次加载前的BeanDefinition数量
 		int countBefore = getRegistry().getBeanDefinitionCount();
+		//加载并注册
 		documentReader.registerBeanDefinitions(doc, createReaderContext(resource));
+		//本次加载注册后容器里BeanDefinition的数量减去先前的，即本次加载的BeanDefinition数量
 		return getRegistry().getBeanDefinitionCount() - countBefore;
 	}
 

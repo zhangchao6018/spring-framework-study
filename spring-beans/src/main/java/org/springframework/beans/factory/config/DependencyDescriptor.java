@@ -42,6 +42,9 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
 
 /**
+ * 工具类DependencyDescriptor描述一个用于注入的依赖。
+ * 这样一个对象用于包装一个成员属性依赖，一个构造函数参数依赖或者成员方法参数依赖。
+ * 此描述器工具对将要注入的依赖进行包装之后，对这些信息的访问方式就统一了。
  * Descriptor for a specific dependency that is about to be injected.
  * Wraps a constructor parameter, a method parameter or a field,
  * allowing unified access to their metadata.
@@ -51,32 +54,32 @@ import org.springframework.util.ObjectUtils;
  */
 @SuppressWarnings("serial")
 public class DependencyDescriptor extends InjectionPoint implements Serializable {
-
+	//保存所包装依赖(成员属性或者成员方法的某个参数)所在的声明类，
 	private final Class<?> declaringClass;
-
+	//如果所包装依赖是成员方法的某个参数，则这里记录该成员方法的名称
 	@Nullable
 	private String methodName;
-
+	//如果所包装的是成员方法的某个参数，则这里记录该参数的类型
 	@Nullable
 	private Class<?>[] parameterTypes;
-
+	// 如果所包装的是成员方法的某个参数，则这里记录该参数在该函数参数列表中的索引
 	private int parameterIndex;
-
+	//如果所包装的是成员属性，则这里记录该成员属性的名称
 	@Nullable
 	private String fieldName;
-
+	// 标识所包装依赖是否必要依赖
 	private final boolean required;
-
+	// 标识所包装依赖是否需要饥饿加载
 	private final boolean eager;
-
+	// 标识所包装依赖的嵌套级别
 	private int nestingLevel = 1;
-
+	// 标识所包装依赖的包含者类，通常和声明类是同一个
 	@Nullable
 	private Class<?> containingClass;
-
+	// 所包装依赖 ResolvableType 的缓存
 	@Nullable
 	private transient volatile ResolvableType resolvableType;
-
+	// 所包装依赖 TypeDescriptor 的缓存
 	@Nullable
 	private transient volatile TypeDescriptor typeDescriptor;
 

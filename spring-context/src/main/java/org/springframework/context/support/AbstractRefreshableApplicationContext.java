@@ -122,15 +122,21 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 */
 	@Override
 	protected final void refreshBeanFactory() throws BeansException {
+		//如果已经有容器，销毁容器中的bean，关闭容器
 		if (hasBeanFactory()) {
 			destroyBeans();
 			closeBeanFactory();
 		}
 		try {
+			//创建容器
 			DefaultListableBeanFactory beanFactory = createBeanFactory();
 			beanFactory.setSerializationId(getId());
+			//对容器进行定制化，默认主要设置是否允许BeanDefinition的重复注册，
+			// Bean之间是否允许循环引用等，此外还可以设置启动参数，开启注解的自动装配等
 			customizeBeanFactory(beanFactory);
+			//加载BeanDefinition,for xml,使用了委派模式
 			loadBeanDefinitions(beanFactory);
+			//将 BeanFactory 设置为 Spring 容器的内部 BeanFactory
 			synchronized (this.beanFactoryMonitor) {
 				this.beanFactory = beanFactory;
 			}

@@ -16,6 +16,12 @@
 
 package org.springframework.core.io;
 
+import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.ResourceUtils;
+import org.springframework.util.StringUtils;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
@@ -23,12 +29,6 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.springframework.lang.Nullable;
-import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
-import org.springframework.util.ResourceUtils;
-import org.springframework.util.StringUtils;
 
 /**
  * Default implementation of the {@link ResourceLoader} interface.
@@ -140,24 +140,31 @@ public class DefaultResourceLoader implements ResourceLoader {
 	}
 
 
+	//获取Resource的具体实现类实例
 	@Override
 	public Resource getResource(String location) {
 		Assert.notNull(location, "Location must not be null");
-
+		//ProtocolResolver ，用户自定义协议资源解决策略
 		for (ProtocolResolver protocolResolver : getProtocolResolvers()) {
 			Resource resource = protocolResolver.resolve(location, this);
 			if (resource != null) {
 				return resource;
 			}
 		}
-
+		//如果是以/开头，则构造ClassPathContextResource返回
 		if (location.startsWith("/")) {
 			return getResourceByPath(location);
 		}
+		//若以classpath:开头，则构造 ClassPathResource 类型资源并返回，在构造该资源时，
+		// 通过 getClassLoader()获取当前的 ClassLoader
 		else if (location.startsWith(CLASSPATH_URL_PREFIX)) {
 			return new ClassPathResource(location.substring(CLASSPATH_URL_PREFIX.length()), getClassLoader());
 		}
 		else {
+			//构造 URL ，尝试通过它进行资源定位，若没有抛出 MalformedURLException 异常，
+			// 则判断是否为 FileURL , 如果是则构造 FileUrlResource 类型资源，否则构造 UrlResource。
+			// 若在加载过程中抛出 MalformedURLException 异常，
+			// 则委派 getResourceByPath() 实现资源定位加载
 			try {
 				// Try to parse the location as a URL...
 				URL url = new URL(location);

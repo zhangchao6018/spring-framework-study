@@ -131,33 +131,44 @@ class ConstructorResolver {
 		Constructor<?> constructorToUse = null;
 		ArgumentsHolder argsHolderToUse = null;
 		Object[] argsToUse = null;
-
+		// explicit通过getBean方法传入
+		// 如果getBean方法调用的时候指定方法参数，那么直接使用
 		if (explicitArgs != null) {
 			argsToUse = explicitArgs;
 		}
 		else {
+			// 如果在getBean方法时候没有指定则尝试从配置文件中解析
 			Object[] argsToResolve = null;
+			// 尝试从缓存中获取获取参数
 			synchronized (mbd.constructorArgumentLock) {
 				constructorToUse = (Constructor<?>) mbd.resolvedConstructorOrFactoryMethod;
 				if (constructorToUse != null && mbd.constructorArgumentsResolved) {
 					// Found a cached constructor...
+					// 缓存中的构造参数
 					argsToUse = mbd.resolvedConstructorArguments;
 					if (argsToUse == null) {
 						argsToResolve = mbd.preparedConstructorArguments;
 					}
 				}
 			}
+			// 如果缓存中存在
 			if (argsToResolve != null) {
+				// 解析参数类型，如给定方法的构造函数A(int,int)则通过此方法后就会
+				// 把配置中("1","1")转换为(1,1)
+				// 缓存中的值可能是原始值也可能是最终值，在这里做处理
 				argsToUse = resolvePreparedArguments(beanName, mbd, bw, constructorToUse, argsToResolve, true);
 			}
 		}
-
+		// 没有缓存也没有明确指定
 		if (constructorToUse == null || argsToUse == null) {
 			// Take specified constructors, if any.
 			Constructor<?>[] candidates = chosenCtors;
+			// 如果参数中没有指定构造函数
 			if (candidates == null) {
+				// 获取当前bean对应的class对象
 				Class<?> beanClass = mbd.getBeanClass();
 				try {
+					// 获取所有的构造函数
 					candidates = (mbd.isNonPublicAccessAllowed() ?
 							beanClass.getDeclaredConstructors() : beanClass.getConstructors());
 				}
@@ -167,15 +178,17 @@ class ConstructorResolver {
 							"] from ClassLoader [" + beanClass.getClassLoader() + "] failed", ex);
 				}
 			}
-
+			// 如果只有默认构造函数并且配置文件中也没有参数配置
 			if (candidates.length == 1 && explicitArgs == null && !mbd.hasConstructorArgumentValues()) {
 				Constructor<?> uniqueCandidate = candidates[0];
 				if (uniqueCandidate.getParameterCount() == 0) {
+					// 缓存构造函数
 					synchronized (mbd.constructorArgumentLock) {
 						mbd.resolvedConstructorOrFactoryMethod = uniqueCandidate;
 						mbd.constructorArgumentsResolved = true;
 						mbd.resolvedConstructorArguments = EMPTY_ARGS;
 					}
+					// 使用默认构造函数初始化对象
 					bw.setBeanInstance(instantiate(beanName, mbd, uniqueCandidate, EMPTY_ARGS));
 					return bw;
 				}

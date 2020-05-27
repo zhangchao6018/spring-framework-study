@@ -6,18 +6,18 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!--配置我们刚定义的bean-->
 	<bean id="welcomeService" class="com.demo.service.impl.WelcomeServiceImpl"/>
-	<!-- 1.使用类的无参构造函数创建 -->
-<!--	<bean id="user1" class="com.imooc.entity.User" scope="singleton" lazy-init="true" primary="true"/>-->
-<!--	<alias name="user1" alias="userAlias1,userAlias2,userAlias3"/>-->
-<!--	&lt;!&ndash; 2.使用静态工厂进行创建 &ndash;&gt;-->
-<!--	&lt;!&ndash; class的值不是写User对象的全路径，而是写静态工厂的全路径 &ndash;&gt;-->
-<!--	&lt;!&ndash; factory-method的值写要调用的方法 &ndash;&gt;-->
-<!--	<bean id="user2" class="com.imooc.entity.factory.StaticFactory" factory-method="getUser" scope="singleton"/>-->
-<!--	&lt;!&ndash; 3.使用实例工厂进行创建 &ndash;&gt;-->
-<!--	&lt;!&ndash; 需要先创建factoryBean对象，再通过factoryBean对象进行调用 &ndash;&gt;-->
-<!--	<bean id="userFactory" class="com.imooc.entity.factory.UserFactory"/>-->
-<!--	<bean id="user3" factory-bean="userFactory" factory-method="getUser" scope="prototype" />-->
-<!--	<bean id="userFactoryBean" class="com.imooc.entity.factory.UserFactoryBean"/>-->
+	 <!--1.使用类的无参构造函数创建-->
+	<bean id="user1" class="com.demo.entity.User" scope="singleton" lazy-init="true" primary="true"/>
+	<alias name="user1" alias="userAlias1,userAlias2,userAlias3"/>
+	<!-- 2.使用静态工厂进行创建 -->
+	<!-- class的值不是写User对象的全路径，而是写静态工厂的全路径 -->
+	<!-- factory-method的值写要调用的方法 -->
+	<bean id="user2" class="com.demo.entity.factory.StaticFactory" factory-method="getUser" scope="singleton"/>
+	<!-- 3.使用实例工厂进行创建 -->
+	<!-- 需要先创建factoryBean对象，再通过factoryBean对象进行调用 -->
+	<bean id="userFactory" class="com.demo.entity.factory.UserFactory"/>
+	<bean id="user3" factory-bean="userFactory" factory-method="getUser" scope="prototype" />
+	<bean id="userFactoryBean" class="com.demo.entity.factory.UserFactoryBean"/>
 
 </beans>
 

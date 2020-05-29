@@ -18,7 +18,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 @Configuration
 @ComponentScan("com.demo")
 public class Entrance {
-	public static void main(String[] args) {
+	public static void main1(String[] args) {
 		System.out.println("Hello World!");
 		//获取xml里配置的bean路径
 		String xmlPath = "//Users/zhangchao/code/spring-source-code/spring-framework-5.2.0.RELEASE/spring-demo/src/main/resources/spring/spring-config.xml";
@@ -55,7 +55,7 @@ public class Entrance {
 	}
 
 
-	public static void main1(String[] args) {
+	public static void main(String[] args) {
 		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Entrance.class);
 		String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
 		for(String beanDefinitionName : beanDefinitionNames){
@@ -63,8 +63,8 @@ public class Entrance {
 		}
 		WelcomeController welcomeController = (WelcomeController) applicationContext.getBean("welcomeController");
 		welcomeController.handleRequest();
-//		User user5 = (User)applicationContext.getBean("user5");
-//		System.out.println("CustomizedBeanDefinitionRegistryPostProcessor创建的对象：" + user5);
+		User user5 = (User)applicationContext.getBean("user5");
+		System.out.println("CustomizedBeanDefinitionRegistryPostProcessor创建的对象：" + user5);
 	}
 
 

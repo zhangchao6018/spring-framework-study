@@ -57,6 +57,9 @@ public class Entrance {
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Entrance.class);
+		//默认不支持 prototype下的构造器循环依赖
+		//Company company = (Company)applicationContext.getBean("company");
+
 		String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
 		for(String beanDefinitionName : beanDefinitionNames){
 			System.out.println(beanDefinitionName);

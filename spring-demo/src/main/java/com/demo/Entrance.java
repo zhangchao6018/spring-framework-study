@@ -1,5 +1,6 @@
 package com.demo;
 
+import com.demo.controller.HelloController;
 import com.demo.controller.WelcomeController;
 import com.demo.entity.User;
 import com.demo.entity.factory.UserFactoryBean;
@@ -8,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
@@ -17,6 +19,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  **/
 @Configuration
 @ComponentScan("com.demo")
+@EnableAspectJAutoProxy   //开启aspect
 public class Entrance {
 	public static void main1(String[] args) {
 		System.out.println("Hello World!");
@@ -68,6 +71,14 @@ public class Entrance {
 		welcomeController.handleRequest();
 		User user5 = (User)applicationContext.getBean("user5");
 		System.out.println("CustomizedBeanDefinitionRegistryPostProcessor创建的对象：" + user5);
+
+		System.out.println("-------------------------------------AOP登场----------------------------------------");
+
+		HelloController helloController = (HelloController)applicationContext.getBean("helloController");
+		helloController.handleRequest();
+		//一般情况不使用
+		//LittleUniverse littleUniverse= (LittleUniverse) helloController;
+		//littleUniverse.burningup();
 	}
 
 

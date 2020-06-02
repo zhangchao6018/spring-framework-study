@@ -16,9 +16,9 @@
 
 package org.springframework.aop.framework;
 
-import org.springframework.util.Assert;
-
 import java.io.Serializable;
+
+import org.springframework.util.Assert;
 
 /**
  * 用于创建代理的配置的父类，以确保所有代理创建者具有一致的属性

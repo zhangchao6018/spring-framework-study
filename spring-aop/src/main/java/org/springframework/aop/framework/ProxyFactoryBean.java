@@ -51,14 +51,14 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
 
 /**
- * {@link org.springframework.beans.factory.FactoryBean} implementation that builds an
- * AOP proxy based on beans in Spring {@link org.springframework.beans.factory.BeanFactory}.
+ * {@link FactoryBean} implementation that builds an
+ * AOP proxy based on beans in Spring {@link BeanFactory}.
  *
  * <p>{@link org.aopalliance.intercept.MethodInterceptor MethodInterceptors} and
- * {@link org.springframework.aop.Advisor Advisors} are identified by a list of bean
+ * {@link Advisor Advisors} are identified by a list of bean
  * names in the current bean factory, specified through the "interceptorNames" property.
  * The last entry in the list can be the name of a target bean or a
- * {@link org.springframework.aop.TargetSource}; however, it is normally preferable
+ * {@link TargetSource}; however, it is normally preferable
  * to use the "targetName"/"target"/"targetSource" properties instead.
  *
  * <p>Global interceptors and advisors can be added at the factory level. The specified
@@ -87,7 +87,7 @@ import org.springframework.util.ObjectUtils;
  * @see #setInterceptorNames
  * @see #setProxyInterfaces
  * @see org.aopalliance.intercept.MethodInterceptor
- * @see org.springframework.aop.Advisor
+ * @see Advisor
  * @see Advised
  */
 @SuppressWarnings("serial")
@@ -157,9 +157,9 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 	 * list is deprecated and will be removed in a future Spring version.</b>
 	 * Use the {@link #setTargetName "targetName"} property instead.
 	 * @see org.aopalliance.intercept.MethodInterceptor
-	 * @see org.springframework.aop.Advisor
-	 * @see org.aopalliance.aop.Advice
-	 * @see org.springframework.aop.target.SingletonTargetSource
+	 * @see Advisor
+	 * @see Advice
+	 * @see SingletonTargetSource
 	 */
 	public void setInterceptorNames(String... interceptorNames) {
 		this.interceptorNames = interceptorNames;
@@ -172,7 +172,7 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 	 * directly, via the "target"/"targetSource" property, respectively.
 	 * @see #setInterceptorNames(String[])
 	 * @see #setTarget(Object)
-	 * @see #setTargetSource(org.springframework.aop.TargetSource)
+	 * @see #setTargetSource(TargetSource)
 	 */
 	public void setTargetName(String targetName) {
 		this.targetName = targetName;
@@ -203,7 +203,7 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 	/**
 	 * Specify the AdvisorAdapterRegistry to use.
 	 * Default is the global AdvisorAdapterRegistry.
-	 * @see org.springframework.aop.framework.adapter.GlobalAdvisorAdapterRegistry
+	 * @see GlobalAdvisorAdapterRegistry
 	 */
 	public void setAdvisorAdapterRegistry(AdvisorAdapterRegistry advisorAdapterRegistry) {
 		this.advisorAdapterRegistry = advisorAdapterRegistry;
@@ -266,7 +266,7 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 	 * Return the type of the proxy. Will check the singleton instance if
 	 * already created, else fall back to the proxy interface (in case of just
 	 * a single one), the target bean type, or the TargetSource's target class.
-	 * @see org.springframework.aop.TargetSource#getTargetClass
+	 * @see TargetSource#getTargetClass
 	 */
 	@Override
 	public Class<?> getObjectType() {

@@ -69,8 +69,8 @@ public abstract class AbstractSingletonProxyFactoryBean extends ProxyConfig
 	 * <p>The target may be any object, in which case a SingletonTargetSource will
 	 * be created. If it is a TargetSource, no wrapper TargetSource is created:
 	 * This enables the use of a pooling or prototype TargetSource etc.
-	 * @see org.springframework.aop.TargetSource
-	 * @see org.springframework.aop.target.SingletonTargetSource
+	 * @see TargetSource
+	 * @see SingletonTargetSource
 	 * @see org.springframework.aop.target.LazyInitTargetSource
 	 * @see org.springframework.aop.target.PrototypeTargetSource
 	 * @see org.springframework.aop.target.CommonsPool2TargetSource
@@ -113,7 +113,7 @@ public abstract class AbstractSingletonProxyFactoryBean extends ProxyConfig
 	/**
 	 * Specify the AdvisorAdapterRegistry to use.
 	 * Default is the global AdvisorAdapterRegistry.
-	 * @see org.springframework.aop.framework.adapter.GlobalAdvisorAdapterRegistry
+	 * @see GlobalAdvisorAdapterRegistry
 	 */
 	public void setAdvisorAdapterRegistry(AdvisorAdapterRegistry advisorAdapterRegistry) {
 		this.advisorAdapterRegistry = advisorAdapterRegistry;

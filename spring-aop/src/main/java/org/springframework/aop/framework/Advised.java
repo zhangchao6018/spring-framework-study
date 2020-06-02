@@ -33,7 +33,7 @@ import org.springframework.aop.TargetSource;
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 13.03.2003
- * @see org.springframework.aop.framework.AdvisedSupport
+ * @see AdvisedSupport
  */
 public interface Advised extends TargetClassAware {
 
@@ -49,18 +49,21 @@ public interface Advised extends TargetClassAware {
 	boolean isProxyTargetClass();
 
 	/**
+	 * 返回被代理了的接口们
 	 * Return the interfaces proxied by the AOP proxy.
 	 * <p>Will not include the target class, which may also be proxied.
 	 */
 	Class<?>[] getProxiedInterfaces();
 
 	/**
+	 * 决定这个指定的接口是否被代理了
 	 * Determine whether the given interface is proxied.
 	 * @param intf the interface to check
 	 */
 	boolean isInterfaceProxied(Class<?> intf);
 
 	/**
+	 * 设置一个TargetSource，TargetSource即被代理的Bean，只有isFrozen为false才能调用此方法
 	 * Change the {@code TargetSource} used by this {@code Advised} object.
 	 * <p>Only works if the configuration isn't {@linkplain #isFrozen frozen}.
 	 * @param targetSource new TargetSource to use
@@ -109,12 +112,14 @@ public interface Advised extends TargetClassAware {
 	boolean isPreFiltered();
 
 	/**
+	 * 返回作用在当前代理上的所有Advisors
 	 * Return the advisors applying to this proxy.
 	 * @return a list of Advisors applying to this proxy (never {@code null})
 	 */
 	Advisor[] getAdvisors();
 
 	/**
+	 * 相当于在通知（拦截器）链的最后一个加入一个新的
 	 * Add an advisor at the end of the advisor chain.
 	 * <p>The Advisor may be an {@link org.springframework.aop.IntroductionAdvisor},
 	 * in which new interfaces will be available when a proxy is next obtained
@@ -171,6 +176,8 @@ public interface Advised extends TargetClassAware {
 	boolean replaceAdvisor(Advisor a, Advisor b) throws AopConfigException;
 
 	/**
+	 * 增加Advice的相关方法，
+	 * 最终都会变成一个DefaultIntroductionAdvisor（包装有Advice的）
 	 * Add the given AOP Alliance advice to the tail of the advice (interceptor) chain.
 	 * <p>This will be wrapped in a DefaultPointcutAdvisor with a pointcut that always
 	 * applies, and returned from the {@code getAdvisors()} method in this wrapped form.

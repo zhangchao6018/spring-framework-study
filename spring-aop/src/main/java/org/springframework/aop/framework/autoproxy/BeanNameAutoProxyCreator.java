@@ -59,8 +59,8 @@ public class BeanNameAutoProxyCreator extends AbstractAutoProxyCreator {
 	 * If you intend to proxy a FactoryBean instance itself (a rare use case, but
 	 * Spring 1.2's default behavior), specify the bean name of the FactoryBean
 	 * including the factory-bean prefix "&": e.g. "&myFactoryBean".
-	 * @see org.springframework.beans.factory.FactoryBean
-	 * @see org.springframework.beans.factory.BeanFactory#FACTORY_BEAN_PREFIX
+	 * @see FactoryBean
+	 * @see BeanFactory#FACTORY_BEAN_PREFIX
 	 */
 	public void setBeanNames(String... beanNames) {
 		Assert.notEmpty(beanNames, "'beanNames' must not be empty");
@@ -111,7 +111,7 @@ public class BeanNameAutoProxyCreator extends AbstractAutoProxyCreator {
 	 * @param beanName the bean name to check
 	 * @param mappedName the name in the configured list of names
 	 * @return if the names match
-	 * @see org.springframework.util.PatternMatchUtils#simpleMatch(String, String)
+	 * @see PatternMatchUtils#simpleMatch(String, String)
 	 */
 	protected boolean isMatch(String beanName, String mappedName) {
 		return PatternMatchUtils.simpleMatch(mappedName, beanName);

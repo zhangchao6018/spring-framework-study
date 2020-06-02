@@ -107,6 +107,8 @@ public class ProxyFactory extends ProxyCreatorSupport {
 	 * @return the proxy object
 	 */
 	public Object getProxy(@Nullable ClassLoader classLoader) {
+		// 首先获取AopProxy对象，其主要有两个实现：JdkDynamicAopProxy和ObjenesisCglibAopProxy，
+		// 分别用于Jdk和Cglib代理类的生成，其getProxy()方法则用于获取具体的代理对象
 		return createAopProxy().getProxy(classLoader);
 	}
 
@@ -119,7 +121,7 @@ public class ProxyFactory extends ProxyCreatorSupport {
 	 * @param proxyInterface the interface that the proxy should implement
 	 * @param interceptor the interceptor that the proxy should invoke
 	 * @return the proxy object
-	 * @see #ProxyFactory(Class, org.aopalliance.intercept.Interceptor)
+	 * @see #ProxyFactory(Class, Interceptor)
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getProxy(Class<T> proxyInterface, Interceptor interceptor) {
@@ -132,7 +134,7 @@ public class ProxyFactory extends ProxyCreatorSupport {
 	 * @param proxyInterface the interface that the proxy should implement
 	 * @param targetSource the TargetSource that the proxy should invoke
 	 * @return the proxy object
-	 * @see #ProxyFactory(Class, org.springframework.aop.TargetSource)
+	 * @see #ProxyFactory(Class, TargetSource)
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getProxy(Class<T> proxyInterface, TargetSource targetSource) {

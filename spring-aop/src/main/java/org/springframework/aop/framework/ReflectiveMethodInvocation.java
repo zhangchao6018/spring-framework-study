@@ -32,9 +32,9 @@ import org.springframework.lang.Nullable;
 
 /**
  * Spring's implementation of the AOP Alliance
- * {@link org.aopalliance.intercept.MethodInvocation} interface,
+ * {@link MethodInvocation} interface,
  * implementing the extended
- * {@link org.springframework.aop.ProxyMethodInvocation} interface.
+ * {@link ProxyMethodInvocation} interface.
  *
  * <p>Invokes the target object using reflection. Subclasses can override the
  * {@link #invokeJoinpoint()} method to change this behavior, so this is also
@@ -159,10 +159,12 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 	@Nullable
 	public Object proceed() throws Throwable {
 		// We start with an index of -1 and increment early.
+		// 注意这里是递归调用，所以是从索引为-1的拦截器开始调用，并按序递增
+		//如果拦截器链中的拦截器调用完毕，就执行被代理的方法本身
 		if (this.currentInterceptorIndex == this.interceptorsAndDynamicMethodMatchers.size() - 1) {
 			return invokeJoinpoint();
 		}
-
+		//获取第一个方法拦截器使用的是前++，获取下一个要执行的拦截器
 		Object interceptorOrInterceptionAdvice =
 				this.interceptorsAndDynamicMethodMatchers.get(++this.currentInterceptorIndex);
 		if (interceptorOrInterceptionAdvice instanceof InterceptorAndDynamicMethodMatcher) {
@@ -171,18 +173,21 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 			InterceptorAndDynamicMethodMatcher dm =
 					(InterceptorAndDynamicMethodMatcher) interceptorOrInterceptionAdvice;
 			Class<?> targetClass = (this.targetClass != null ? this.targetClass : this.method.getDeclaringClass());
+			//精确匹配
 			if (dm.methodMatcher.matches(this.method, targetClass, this.arguments)) {
 				return dm.interceptor.invoke(this);
 			}
 			else {
 				// Dynamic matching failed.
 				// Skip this interceptor and invoke the next in the chain.
+				// 匹配错误，跳过，调用下一个
 				return proceed();
 			}
 		}
 		else {
 			// It's an interceptor, so we just invoke it: The pointcut will have
 			// been evaluated statically before this object was constructed.
+			// 如果拦截的不是精确到方法级别的，比如是拦截一整个类，就直接调用，不用再匹配方法了
 			return ((MethodInterceptor) interceptorOrInterceptionAdvice).invoke(this);
 		}
 	}
@@ -205,7 +210,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 	 * <p>We want a shallow copy in this case: We want to use the same interceptor
 	 * chain and other object references, but we want an independent value for the
 	 * current interceptor index.
-	 * @see java.lang.Object#clone()
+	 * @see Object#clone()
 	 */
 	@Override
 	public MethodInvocation invocableClone() {
@@ -224,7 +229,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 	 * <p>We want a shallow copy in this case: We want to use the same interceptor
 	 * chain and other object references, but we want an independent value for the
 	 * current interceptor index.
-	 * @see java.lang.Object#clone()
+	 * @see Object#clone()
 	 */
 	@Override
 	public MethodInvocation invocableClone(Object... arguments) {

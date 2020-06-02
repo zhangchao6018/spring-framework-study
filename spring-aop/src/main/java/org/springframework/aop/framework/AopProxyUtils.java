@@ -35,12 +35,12 @@ import org.springframework.util.ObjectUtils;
  * Utility methods for AOP proxy factories.
  * Mainly for internal use within the AOP framework.
  *
- * <p>See {@link org.springframework.aop.support.AopUtils} for a collection of
+ * <p>See {@link AopUtils} for a collection of
  * generic AOP utility methods which do not depend on AOP framework internals.
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
- * @see org.springframework.aop.support.AopUtils
+ * @see AopUtils
  */
 public abstract class AopProxyUtils {
 
@@ -71,7 +71,7 @@ public abstract class AopProxyUtils {
 	 * @param candidate the instance to check (might be an AOP proxy)
 	 * @return the ultimate target class (or the plain class of the given
 	 * object as fallback; never {@code null})
-	 * @see org.springframework.aop.TargetClassAware#getTargetClass()
+	 * @see TargetClassAware#getTargetClass()
 	 * @see Advised#getTargetSource()
 	 */
 	public static Class<?> ultimateTargetClass(Object candidate) {
@@ -92,7 +92,7 @@ public abstract class AopProxyUtils {
 	 * Determine the complete set of interfaces to proxy for the given AOP configuration.
 	 * <p>This will always add the {@link Advised} interface unless the AdvisedSupport's
 	 * {@link AdvisedSupport#setOpaque "opaque"} flag is on. Always adds the
-	 * {@link org.springframework.aop.SpringProxy} marker interface.
+	 * {@link SpringProxy} marker interface.
 	 * @param advised the proxy config
 	 * @return the complete set of interfaces to proxy
 	 * @see SpringProxy
@@ -106,7 +106,7 @@ public abstract class AopProxyUtils {
 	 * Determine the complete set of interfaces to proxy for the given AOP configuration.
 	 * <p>This will always add the {@link Advised} interface unless the AdvisedSupport's
 	 * {@link AdvisedSupport#setOpaque "opaque"} flag is on. Always adds the
-	 * {@link org.springframework.aop.SpringProxy} marker interface.
+	 * {@link SpringProxy} marker interface.
 	 * @param advised the proxy config
 	 * @param decoratingProxy whether to expose the {@link DecoratingProxy} interface
 	 * @return the complete set of interfaces to proxy

@@ -117,6 +117,8 @@ public abstract class AutoProxyUtils {
 	}
 
 	/**
+	 * Spring5.1后增加，原始实例的后缀，
+	 * 例如"com.imooc.MyClass.ORIGINAL"，强制返回给定的实例（没有代理）
 	 * Determine whether the given bean name indicates an "original instance"
 	 * according to {@link AutowireCapableBeanFactory#ORIGINAL_INSTANCE_SUFFIX},
 	 * skipping any proxy attempts for it.

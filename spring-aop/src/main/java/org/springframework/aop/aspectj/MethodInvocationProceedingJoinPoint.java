@@ -153,7 +153,7 @@ public class MethodInvocationProceedingJoinPoint implements ProceedingJoinPoint,
 	}
 
 	@Override
-	public JoinPoint.StaticPart getStaticPart() {
+	public StaticPart getStaticPart() {
 		return this;
 	}
 

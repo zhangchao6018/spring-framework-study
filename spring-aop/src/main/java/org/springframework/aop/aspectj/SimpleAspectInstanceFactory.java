@@ -85,9 +85,9 @@ public class SimpleAspectInstanceFactory implements AspectInstanceFactory {
 	/**
 	 * Determine the order for this factory's aspect instance,
 	 * either an instance-specific order expressed through implementing
-	 * the {@link org.springframework.core.Ordered} interface,
+	 * the {@link Ordered} interface,
 	 * or a fallback order.
-	 * @see org.springframework.core.Ordered
+	 * @see Ordered
 	 * @see #getOrderForAspectClass
 	 */
 	@Override
@@ -98,7 +98,7 @@ public class SimpleAspectInstanceFactory implements AspectInstanceFactory {
 	/**
 	 * Determine a fallback order for the case that the aspect instance
 	 * does not express an instance-specific order through implementing
-	 * the {@link org.springframework.core.Ordered} interface.
+	 * the {@link Ordered} interface.
 	 * <p>The default implementation simply returns {@code Ordered.LOWEST_PRECEDENCE}.
 	 * @param aspectClass the aspect class
 	 */

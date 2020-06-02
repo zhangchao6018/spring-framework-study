@@ -42,7 +42,7 @@ import org.springframework.lang.Nullable;
  * @author Juergen Hoeller
  * @since 1.2
  * @see #setUseDynamicLogger
- * @see #invokeUnderTrace(org.aopalliance.intercept.MethodInvocation, org.apache.commons.logging.Log)
+ * @see #invokeUnderTrace(MethodInvocation, Log)
  */
 @SuppressWarnings("serial")
 public abstract class AbstractTraceInterceptor implements MethodInterceptor, Serializable {
@@ -75,7 +75,7 @@ public abstract class AbstractTraceInterceptor implements MethodInterceptor, Ser
 	 * {@code Class} getting called, or a static one for the {@code Class}
 	 * of the trace interceptor.
 	 * <p><b>NOTE:</b> Specify either this property or "loggerName", not both.
-	 * @see #getLoggerForInvocation(org.aopalliance.intercept.MethodInvocation)
+	 * @see #getLoggerForInvocation(MethodInvocation)
 	 */
 	public void setUseDynamicLogger(boolean useDynamicLogger) {
 		// Release default logger if it is not being used.
@@ -90,7 +90,7 @@ public abstract class AbstractTraceInterceptor implements MethodInterceptor, Ser
 	 * (whether this interceptor's class or the class getting called)
 	 * but rather into a specific named category.
 	 * <p><b>NOTE:</b> Specify either this property or "useDynamicLogger", not both.
-	 * @see org.apache.commons.logging.LogFactory#getLog(String)
+	 * @see LogFactory#getLog(String)
 	 * @see java.util.logging.Logger#getLogger(String)
 	 */
 	public void setLoggerName(String loggerName) {
@@ -121,7 +121,7 @@ public abstract class AbstractTraceInterceptor implements MethodInterceptor, Ser
 	 * Determines whether or not logging is enabled for the particular {@code MethodInvocation}.
 	 * If not, the method invocation proceeds as normal, otherwise the method invocation is passed
 	 * to the {@code invokeUnderTrace} method for handling.
-	 * @see #invokeUnderTrace(org.aopalliance.intercept.MethodInvocation, org.apache.commons.logging.Log)
+	 * @see #invokeUnderTrace(MethodInvocation, Log)
 	 */
 	@Override
 	@Nullable

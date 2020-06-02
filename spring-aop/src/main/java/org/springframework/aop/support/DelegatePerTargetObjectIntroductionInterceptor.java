@@ -29,7 +29,7 @@ import org.springframework.util.ReflectionUtils;
 
 /**
  * Convenient implementation of the
- * {@link org.springframework.aop.IntroductionInterceptor} interface.
+ * {@link IntroductionInterceptor} interface.
  *
  * <p>This differs from {@link DelegatingIntroductionInterceptor} in that a single
  * instance of this class can be used to advise multiple target objects, and each target

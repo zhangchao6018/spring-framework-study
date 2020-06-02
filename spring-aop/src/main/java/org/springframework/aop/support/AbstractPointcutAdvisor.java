@@ -26,7 +26,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
 
 /**
- * Abstract base class for {@link org.springframework.aop.PointcutAdvisor}
+ * Abstract base class for {@link PointcutAdvisor}
  * implementations. Can be subclassed for returning a specific pointcut/advice
  * or a freely configurable pointcut/advice.
  *

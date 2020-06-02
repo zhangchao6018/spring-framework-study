@@ -92,7 +92,7 @@ public class NameMatchMethodPointcut extends StaticMethodMatcherPointcut impleme
 	 * @param methodName the method name of the class
 	 * @param mappedName the name in the descriptor
 	 * @return if the names match
-	 * @see org.springframework.util.PatternMatchUtils#simpleMatch(String, String)
+	 * @see PatternMatchUtils#simpleMatch(String, String)
 	 */
 	protected boolean isMatch(String methodName, String mappedName) {
 		return PatternMatchUtils.simpleMatch(mappedName, methodName);

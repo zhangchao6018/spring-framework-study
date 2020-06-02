@@ -34,7 +34,7 @@ import org.springframework.core.Ordered;
 import org.springframework.util.ClassUtils;
 
 /**
- * {@link org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator}
+ * {@link AbstractAdvisorAutoProxyCreator}
  * subclass that exposes AspectJ's invocation context and understands AspectJ's rules
  * for advice precedence when multiple pieces of advice come from the same aspect.
  *
@@ -50,6 +50,7 @@ public class AspectJAwareAdvisorAutoProxyCreator extends AbstractAdvisorAutoProx
 
 
 	/**
+	 * 重写了排序
 	 * Sort the rest by AspectJ precedence. If two pieces of advice have
 	 * come from the same aspect they will have the same order.
 	 * Advice from the same aspect is then further ordered according to the
@@ -98,6 +99,7 @@ public class AspectJAwareAdvisorAutoProxyCreator extends AbstractAdvisorAutoProx
 	@Override
 	protected boolean shouldSkip(Class<?> beanClass, String beanName) {
 		// TODO: Consider optimization by caching the list of the aspect names
+		//找到候选的Advisors
 		List<Advisor> candidateAdvisors = findCandidateAdvisors();
 		for (Advisor advisor : candidateAdvisors) {
 			if (advisor instanceof AspectJPointcutAdvisor &&

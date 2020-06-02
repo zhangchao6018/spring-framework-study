@@ -67,7 +67,7 @@ class AspectJPrecedenceComparator implements Comparator<Advisor> {
 
 	/**
 	 * Create a AspectJPrecedenceComparator, using the given Comparator
-	 * for comparing {@link org.springframework.aop.Advisor} instances.
+	 * for comparing {@link Advisor} instances.
 	 * @param advisorComparator the Comparator to use for Advisors
 	 */
 	public AspectJPrecedenceComparator(Comparator<? super Advisor> advisorComparator) {

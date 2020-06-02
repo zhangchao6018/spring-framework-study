@@ -465,7 +465,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 	/**
 	 * Parses the {@code pointcut} or {@code pointcut-ref} attributes of the supplied
 	 * {@link Element} and add a {@code pointcut} property as appropriate. Generates a
-	 * {@link org.springframework.beans.factory.config.BeanDefinition} for the pointcut if  necessary
+	 * {@link BeanDefinition} for the pointcut if  necessary
 	 * and returns its bean name, otherwise returns the bean name of the referred pointcut.
 	 */
 	@Nullable

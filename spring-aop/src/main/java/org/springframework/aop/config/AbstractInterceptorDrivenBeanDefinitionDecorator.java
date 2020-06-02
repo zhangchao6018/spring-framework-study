@@ -36,7 +36,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * Base implementation for
- * {@link org.springframework.beans.factory.xml.BeanDefinitionDecorator BeanDefinitionDecorators}
+ * {@link BeanDefinitionDecorator BeanDefinitionDecorators}
  * wishing to add an {@link org.aopalliance.intercept.MethodInterceptor interceptor}
  * to the resulting bean.
  *
@@ -45,8 +45,8 @@ import org.springframework.util.StringUtils;
  * of {@link ProxyFactoryBean}.
  *
  * <p>Chaining is correctly handled, ensuring that only one {@link ProxyFactoryBean} definition
- * is created. If a previous {@link org.springframework.beans.factory.xml.BeanDefinitionDecorator}
- * already created the {@link org.springframework.aop.framework.ProxyFactoryBean} then the
+ * is created. If a previous {@link BeanDefinitionDecorator}
+ * already created the {@link ProxyFactoryBean} then the
  * interceptor is simply added to the existing definition.
  *
  * <p>Subclasses have only to create the {@code BeanDefinition} to the interceptor that

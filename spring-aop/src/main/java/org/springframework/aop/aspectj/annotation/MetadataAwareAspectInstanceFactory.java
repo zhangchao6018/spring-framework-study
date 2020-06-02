@@ -20,7 +20,7 @@ import org.springframework.aop.aspectj.AspectInstanceFactory;
 import org.springframework.lang.Nullable;
 
 /**
- * Subinterface of {@link org.springframework.aop.aspectj.AspectInstanceFactory}
+ * Subinterface of {@link AspectInstanceFactory}
  * that returns {@link AspectMetadata} associated with AspectJ-annotated classes.
  *
  * <p>Ideally, AspectInstanceFactory would include this method itself, but because

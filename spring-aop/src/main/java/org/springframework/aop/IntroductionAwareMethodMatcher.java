@@ -30,7 +30,7 @@ public interface IntroductionAwareMethodMatcher extends MethodMatcher {
 
 	/**
 	 * Perform static checking whether the given method matches. This may be invoked
-	 * instead of the 2-arg {@link #matches(java.lang.reflect.Method, Class)} method
+	 * instead of the 2-arg {@link #matches(Method, Class)} method
 	 * if the caller supports the extended IntroductionAwareMethodMatcher interface.
 	 * @param method the candidate method
 	 * @param targetClass the target class

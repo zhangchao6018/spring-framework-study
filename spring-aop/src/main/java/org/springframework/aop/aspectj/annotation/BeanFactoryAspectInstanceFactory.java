@@ -28,7 +28,7 @@ import org.springframework.util.ClassUtils;
 
 /**
  * {@link org.springframework.aop.aspectj.AspectInstanceFactory} implementation
- * backed by a Spring {@link org.springframework.beans.factory.BeanFactory}.
+ * backed by a Spring {@link BeanFactory}.
  *
  * <p>Note that this may instantiate multiple times if using a prototype,
  * which probably won't give the semantics you expect.
@@ -38,7 +38,7 @@ import org.springframework.util.ClassUtils;
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 2.0
- * @see org.springframework.beans.factory.BeanFactory
+ * @see BeanFactory
  * @see LazySingletonAspectInstanceFactoryDecorator
  */
 @SuppressWarnings("serial")
@@ -124,11 +124,11 @@ public class BeanFactoryAspectInstanceFactory implements MetadataAwareAspectInst
 	/**
 	 * Determine the order for this factory's target aspect, either
 	 * an instance-specific order expressed through implementing the
-	 * {@link org.springframework.core.Ordered} interface (only
+	 * {@link Ordered} interface (only
 	 * checked for singleton beans), or an order expressed through the
 	 * {@link org.springframework.core.annotation.Order} annotation
 	 * at the class level.
-	 * @see org.springframework.core.Ordered
+	 * @see Ordered
 	 * @see org.springframework.core.annotation.Order
 	 */
 	@Override

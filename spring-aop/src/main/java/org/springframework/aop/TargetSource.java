@@ -36,6 +36,8 @@ import org.springframework.lang.Nullable;
 public interface TargetSource extends TargetClassAware {
 
 	/**
+	 * 返回当前目标源的目标类型
+	 * 可以返回null值，如：EmptyTargetSource（未知类会使用这个目标源）
 	 * Return the type of targets returned by this {@link TargetSource}.
 	 * <p>Can return {@code null}, although certain usages of a {@code TargetSource}
 	 * might just work with a predetermined target class.
@@ -46,6 +48,9 @@ public interface TargetSource extends TargetClassAware {
 	Class<?> getTargetClass();
 
 	/**
+	 * 当前目标源是否是静态的。
+	 * 如果为false，则每次方法调用结束后会调用releaseTarget()释放目标对象.
+	 * 如果为true，则目标对象不可变，也就没必要释放了。
 	 * Will all calls to {@link #getTarget()} return the same object?
 	 * <p>In that case, there will be no need to invoke {@link #releaseTarget(Object)},
 	 * and the AOP framework can cache the return value of {@link #getTarget()}.
@@ -55,6 +60,8 @@ public interface TargetSource extends TargetClassAware {
 	boolean isStatic();
 
 	/**
+	 * 获取一个目标对象。
+	 * 在每次MethodInvocation方法调用执行之前获取。
 	 * Return a target instance. Invoked immediately before the
 	 * AOP framework calls the "target" of an AOP method invocation.
 	 * @return the target object which contains the joinpoint,
@@ -65,6 +72,7 @@ public interface TargetSource extends TargetClassAware {
 	Object getTarget() throws Exception;
 
 	/**
+	 * 释放指定的目标对象。
 	 * Release the given target object obtained from the
 	 * {@link #getTarget()} method, if any.
 	 * @param target object obtained from a call to {@link #getTarget()}

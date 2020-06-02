@@ -37,7 +37,7 @@ import org.springframework.beans.factory.NamedBean;
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 2.0
- * @see org.springframework.beans.factory.NamedBean
+ * @see NamedBean
  */
 public abstract class ExposeBeanNameAdvisors {
 

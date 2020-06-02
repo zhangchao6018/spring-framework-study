@@ -31,7 +31,7 @@ import org.springframework.aop.IntroductionInfo;
 import org.springframework.util.ClassUtils;
 
 /**
- * Support for implementations of {@link org.springframework.aop.IntroductionInfo}.
+ * Support for implementations of {@link IntroductionInfo}.
  *
  * <p>Allows subclasses to conveniently add all interfaces from a given object,
  * and to suppress interfaces that should not be added. Also allows for querying

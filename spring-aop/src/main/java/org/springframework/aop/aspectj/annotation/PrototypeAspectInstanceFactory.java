@@ -31,7 +31,7 @@ import org.springframework.beans.factory.BeanFactory;
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 2.0
- * @see org.springframework.beans.factory.BeanFactory
+ * @see BeanFactory
  * @see LazySingletonAspectInstanceFactoryDecorator
  */
 @SuppressWarnings("serial")

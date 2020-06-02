@@ -119,7 +119,8 @@ public abstract class AopConfigUtils {
 			Class<?> cls, BeanDefinitionRegistry registry, @Nullable Object source) {
 
 		Assert.notNull(registry, "BeanDefinitionRegistry must not be null");
-
+		//如果已经存在了自动代理创建器且存在的自动代理创建器与现在要注册的不一致(一般除非用户自定义，基本上不会有)
+		// 那么需要根据优先级来判断到底需要使用哪个
 		if (registry.containsBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME)) {
 			BeanDefinition apcDefinition = registry.getBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME);
 			if (!cls.getName().equals(apcDefinition.getBeanClassName())) {
@@ -131,7 +132,7 @@ public abstract class AopConfigUtils {
 			}
 			return null;
 		}
-
+		//若用户自己没有定义，那就用默认的AnnotationAwareAspectJAutoProxyCreator
 		RootBeanDefinition beanDefinition = new RootBeanDefinition(cls);
 		beanDefinition.setSource(source);
 		beanDefinition.getPropertyValues().add("order", Ordered.HIGHEST_PRECEDENCE);

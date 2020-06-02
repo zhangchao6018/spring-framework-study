@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
 
 /**
  * Convenient implementation of the
- * {@link org.springframework.aop.IntroductionInterceptor} interface.
+ * {@link IntroductionInterceptor} interface.
  *
  * <p>Subclasses merely need to extend this class and implement the interfaces
  * to be introduced themselves. In this case the delegate is the subclass

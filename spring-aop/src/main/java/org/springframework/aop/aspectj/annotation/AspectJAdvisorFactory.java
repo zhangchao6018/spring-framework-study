@@ -82,7 +82,7 @@ public interface AspectJAdvisorFactory {
 	 */
 	@Nullable
 	Advisor getAdvisor(Method candidateAdviceMethod, MetadataAwareAspectInstanceFactory aspectInstanceFactory,
-			int declarationOrder, String aspectName);
+                       int declarationOrder, String aspectName);
 
 	/**
 	 * Build a Spring AOP Advice for the given AspectJ advice method.
@@ -102,6 +102,6 @@ public interface AspectJAdvisorFactory {
 	 */
 	@Nullable
 	Advice getAdvice(Method candidateAdviceMethod, AspectJExpressionPointcut expressionPointcut,
-			MetadataAwareAspectInstanceFactory aspectInstanceFactory, int declarationOrder, String aspectName);
+                     MetadataAwareAspectInstanceFactory aspectInstanceFactory, int declarationOrder, String aspectName);
 
 }

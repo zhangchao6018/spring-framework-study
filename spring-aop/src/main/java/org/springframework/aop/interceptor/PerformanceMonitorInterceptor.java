@@ -30,7 +30,7 @@ import org.springframework.util.StopWatch;
  * @author Rod Johnson
  * @author Dmitriy Kopylenko
  * @author Rob Harrop
- * @see org.springframework.util.StopWatch
+ * @see StopWatch
  * @see JamonPerformanceMonitorInterceptor
  */
 @SuppressWarnings("serial")

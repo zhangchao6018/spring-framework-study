@@ -30,11 +30,11 @@ import java.lang.reflect.Method;
  * method, evaluation can be performed statically, and the result will be the same
  * for all invocations of this method, whatever their arguments. This means that
  * if the {@link #isRuntime()} method returns {@code false}, the 3-arg
- * {@link #matches(java.lang.reflect.Method, Class, Object[])} method will never be invoked.
+ * {@link #matches(Method, Class, Object[])} method will never be invoked.
  *
  * <p>If an implementation returns {@code true} from its 2-arg
- * {@link #matches(java.lang.reflect.Method, Class)} method and its {@link #isRuntime()} method
- * returns {@code true}, the 3-arg {@link #matches(java.lang.reflect.Method, Class, Object[])}
+ * {@link #matches(Method, Class)} method and its {@link #isRuntime()} method
+ * returns {@code true}, the 3-arg {@link #matches(Method, Class, Object[])}
  * method will be invoked <i>immediately before each potential execution of the related advice</i>,
  * to decide whether the advice should run. All previous advice, such as earlier interceptors
  * in an interceptor chain, will have run, so any state changes they have produced in
@@ -56,7 +56,7 @@ public interface MethodMatcher {
 	 * Perform static checking whether the given method matches.
 	 * <p>If this returns {@code false} or if the {@link #isRuntime()}
 	 * method returns {@code false}, no runtime check (i.e. no
-	 * {@link #matches(java.lang.reflect.Method, Class, Object[])} call)
+	 * {@link #matches(Method, Class, Object[])} call)
 	 * will be made.
 	 * @param method the candidate method
 	 * @param targetClass the target class
@@ -66,12 +66,12 @@ public interface MethodMatcher {
 
 	/**
 	 * Is this MethodMatcher dynamic, that is, must a final call be made on the
-	 * {@link #matches(java.lang.reflect.Method, Class, Object[])} method at
+	 * {@link #matches(Method, Class, Object[])} method at
 	 * runtime even if the 2-arg matches method returns {@code true}?
 	 * <p>Can be invoked when an AOP proxy is created, and need not be invoked
 	 * again before each method invocation,
 	 * @return whether or not a runtime match via the 3-arg
-	 * {@link #matches(java.lang.reflect.Method, Class, Object[])} method
+	 * {@link #matches(Method, Class, Object[])} method
 	 * is required if static matching passed
 	 */
 	boolean isRuntime();

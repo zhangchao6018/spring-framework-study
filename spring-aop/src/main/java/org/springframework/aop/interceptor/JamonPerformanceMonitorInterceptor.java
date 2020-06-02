@@ -37,7 +37,7 @@ import org.apache.commons.logging.Log;
  * @author Rob Harrop
  * @author Steve Souza
  * @since 1.1.3
- * @see com.jamonapi.MonitorFactory
+ * @see MonitorFactory
  * @see PerformanceMonitorInterceptor
  */
 @SuppressWarnings("serial")
@@ -102,8 +102,8 @@ public class JamonPerformanceMonitorInterceptor extends AbstractMonitoringInterc
 	/**
 	 * Wraps the invocation with a JAMon Monitor and writes the current
 	 * performance statistics to the log (if enabled).
-	 * @see com.jamonapi.MonitorFactory#start
-	 * @see com.jamonapi.Monitor#stop
+	 * @see MonitorFactory#start
+	 * @see Monitor#stop
 	 */
 	@Override
 	protected Object invokeUnderTrace(MethodInvocation invocation, Log logger) throws Throwable {

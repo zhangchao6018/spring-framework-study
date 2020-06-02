@@ -50,7 +50,7 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
 /**
- * Base class for AOP Alliance {@link org.aopalliance.aop.Advice} classes
+ * Base class for AOP Alliance {@link Advice} classes
  * wrapping an AspectJ aspect or an AspectJ-annotated advice method.
  *
  * @author Rod Johnson

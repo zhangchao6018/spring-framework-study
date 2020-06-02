@@ -16,12 +16,13 @@
 
 package org.springframework.aop.framework.adapter;
 
+import java.io.Serializable;
+
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
+
 import org.springframework.aop.Advisor;
 import org.springframework.aop.AfterReturningAdvice;
-
-import java.io.Serializable;
 
 /**
  * Adapter to enable {@link AfterReturningAdvice}

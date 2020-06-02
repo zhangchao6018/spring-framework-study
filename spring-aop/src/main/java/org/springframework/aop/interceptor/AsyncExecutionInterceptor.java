@@ -36,7 +36,7 @@ import org.springframework.util.ClassUtils;
 
 /**
  * AOP Alliance {@code MethodInterceptor} that processes method invocations
- * asynchronously, using a given {@link org.springframework.core.task.AsyncTaskExecutor}.
+ * asynchronously, using a given {@link AsyncTaskExecutor}.
  * Typically used with the {@link org.springframework.scheduling.annotation.Async} annotation.
  *
  * <p>In terms of target method signatures, any parameter types are supported.

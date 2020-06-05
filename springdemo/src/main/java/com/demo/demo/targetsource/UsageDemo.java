@@ -4,6 +4,9 @@ import org.springframework.aop.TargetSource;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.target.SingletonTargetSource;
 
+/**
+ * targetSource的用法
+ */
 public class UsageDemo {
 	public static void main(String[] args) throws Exception {
 		Target target = new Target();

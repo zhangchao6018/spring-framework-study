@@ -44,14 +44,15 @@
             解析配置
             
             定位与注册对象
-   组件扫描:自动发现应用容器中需要创建的Bean,例如:@Controller @Service ...
+        
+        组件扫描:自动发现应用容器中需要创建的Bean,例如:@Controller @Service ...
         
         自动装配:自动满足Bean之间的依赖,如:@Autowired
             源码:org.springframework.beans.factory.config.AutowireCapableBeanFactory
             
                 org.springframework.beans.factory.support.DefaultListableBeanFactory.beanDefinitionMap -->bean实例容器
                 
-   3.BeanFactory  & ApplicationContext       
+   三.BeanFactory  & ApplicationContext       
    
         BeanFactory 面向spring框架自身
         
@@ -181,7 +182,7 @@
             
         @see https://github.com/zhangchao6018/simple-framework:demo.pattern.eventmode
         
-## efresh
+## refresh
 
     prepareRefresh
     
@@ -247,7 +248,8 @@
         将横切逻辑织入目标Bean中
         
             org/springframework/aop/framework/autoproxy/AbstractAutoProxyCreator.java:387
-    org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator
+            
+            org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator
     
 ## MVC环境搭建
 

@@ -4,7 +4,8 @@
     官网下载spring源码,gradle编译源码:./gradlew :spring-oxm:compileTestJava
     ide导入编译好的工程,排除spring-aspects工程(该工程的编译环境非gradle,具体查看官网描述:https://github.com/spring-projects/spring-framework/tree/v5.2.0.RELEASE)
 
-##hello
+## hello
+
    xml形式读取bean
         新建spring-demo工程,build.gradle添加依赖引用本地spring-context
         编写xml,配置bean:resources/spring/spring-config.xml
@@ -14,13 +15,13 @@
             @Configuration
             @ComponentScan("com.demo")
 
-##全局掌握核心接口和类
+## 全局掌握核心接口和类
    
    解决了关键的问题:将对象之间的关系转为配置(xml/注解)来管理
         依赖注入--依赖关系在Spring的IOC容器中管理
         通过把对象包装在Bean中以达到管理对象和进行额外操作的目的
         
-##Bean与BeanDefinition
+## Bean与BeanDefinition
 
    Bean的本质就是java对象,只是这个对象的声明周期由容器来管理
     不需要为了创建Bean而在原来的java来上添加任何额外的限制--低侵入
@@ -106,9 +107,9 @@
             事件监听器  ApplicationListener
             事件对象  Pubiesher以及Multicaster
         @see https://github.com/zhangchao6018/simple-framework:demo.pattern.eventmode
-#r#efresh
+## efresh
     prepareRefresh
-##spring依赖注入
+## pring依赖注入
 
    1.核心点:单例的三级缓存解决单例Bean循环依赖问题
     2.循环依赖问题:  @see /t-img/spring循环依赖图解.jpg
@@ -130,7 +131,7 @@
         处理显式自动装配的逻辑(autowired=byName/byType)
         
       
-##AOP
+## AOP
 
    为什么在入口类上加上@EnableAspectJAutoProxy 就能支持AOP
     方式:
@@ -145,7 +146,7 @@
             org/springframework/aop/framework/autoproxy/AbstractAutoProxyCreator.java:387
     org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator
     
-##MVC环境搭建
+## VC环境搭建
 
    新建gradle-module:springmvcdemo 
     配置tomcat:JKD11+无视war包

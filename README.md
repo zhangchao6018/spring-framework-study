@@ -1,26 +1,28 @@
-### 准备环境
+## 准备环境
 
    需要gradle环境支持
     官网下载spring源码,gradle编译源码:./gradlew :spring-oxm:compileTestJava
     ide导入编译好的工程,排除spring-aspects工程(该工程的编译环境非gradle,具体查看官网描述:https://github.com/spring-projects/spring-framework/tree/v5.2.0.RELEASE)
 
-###hello
-   xml形式读取bean
+##hello
+    xml形式读取bean
         新建spring-demo工程,build.gradle添加依赖引用本地spring-context
         编写xml,配置bean:resources/spring/spring-config.xml
         编写测试类,测试spring容器:com.demo.Entrance  --run
-   注解形式读取bean
+    注解形式读取bean
         加入口类加上注解
             @Configuration
             @ComponentScan("com.demo")
 
-###全局掌握核心接口和类
-   解决了关键的问题:将对象之间的关系转为配置(xml/注解)来管理
+##全局掌握核心接口和类
+   
+    解决了关键的问题:将对象之间的关系转为配置(xml/注解)来管理
         依赖注入--依赖关系在Spring的IOC容器中管理
         通过把对象包装在Bean中以达到管理对象和进行额外操作的目的
         
-###Bean与BeanDefinition
-   Bean的本质就是java对象,只是这个对象的声明周期由容器来管理
+##Bean与BeanDefinition
+
+    Bean的本质就是java对象,只是这个对象的声明周期由容器来管理
     不需要为了创建Bean而在原来的java来上添加任何额外的限制--低侵入
     1.Bean的定义:
         根据配置,生成用来描述Bean的BeanDefinition,常用属性:
@@ -33,7 +35,7 @@
             解析配置
             定位与注册对象
         
-   组件扫描:自动发现应用容器中需要创建的Bean,例如:@Controller @Service ...
+    组件扫描:自动发现应用容器中需要创建的Bean,例如:@Controller @Service ...
         自动装配:自动满足Bean之间的依赖,如:@Autowired
             源码:org.springframework.beans.factory.config.AutowireCapableBeanFactory
                 org.springframework.beans.factory.support.DefaultListableBeanFactory.beanDefinitionMap -->bean实例容器
@@ -58,7 +60,7 @@
                 AnnotationConfigReactiveWebServerApplicationContext  spring-boot
                 AnnotationConfigApplicationContext  --非web应用
              
-   容器的共性:
+    容器的共性:
             refresh()大致功能:
                 容器初始化,配置解析
                 BeanFactoryPostProcessor和BeanPostProcessor的注册和激活
@@ -105,10 +107,11 @@
             事件监听器  ApplicationListener
             事件对象  Pubiesher以及Multicaster
         @see https://github.com/zhangchao6018/simple-framework:demo.pattern.eventmode
-#####refresh
+#r#efresh
     prepareRefresh
-#####spring依赖注入
-   1.核心点:单例的三级缓存解决单例Bean循环依赖问题
+##spring依赖注入
+
+    1.核心点:单例的三级缓存解决单例Bean循环依赖问题
     2.循环依赖问题:  @see /t-img/spring循环依赖图解.jpg
         使用三级缓存解决:大体思路->Bean_A依赖Bean_B,同时,Bean_B依赖Bean_A,初始化A时会先初始化A的空壳(此时成员变量暂未填充),放入三级缓存,然后初始化成员B(递归)调用初始化,初始化B时从三级缓存获取到了A,直接取出填充到成员变量,放入二级缓存,清除三级缓存....
         org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean
@@ -128,8 +131,9 @@
         处理显式自动装配的逻辑(autowired=byName/byType)
         
       
-###AOP
-   为什么在入口类上加上@EnableAspectJAutoProxy 就能支持AOP
+##AOP
+
+    为什么在入口类上加上@EnableAspectJAutoProxy 就能支持AOP
     方式:
         通过注解将类当做Bean管理起来的方式 @Controller @Service @Component 
         @Bean
@@ -141,10 +145,11 @@
         将横切逻辑织入目标Bean中
             org/springframework/aop/framework/autoproxy/AbstractAutoProxyCreator.java:387
     
-   org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator
+    org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator
     
-###MVC环境搭建
-   新建gradle-module:springmvcdemo 
+##MVC环境搭建
+
+    新建gradle-module:springmvcdemo 
     配置tomcat:JKD11+无视war包
     配置步骤:
         添加spring-mvc依赖以及servlet,jsp依赖
